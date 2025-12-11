@@ -131,29 +131,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            testimonialElement.innerHTML = `
-                ${testimonial.isDefault ? '<div class="your-badge">Мой отзыв</div>' : ''}
-                <div class="testimonial-header">
-                    <div class="testimonial-author">${escapeHtml(testimonial.author)}</div>
-                    <div class="testimonial-date">${formatDate(testimonial.date)}</div>
-                </div>
-                ${testimonial.rating > 0 ? `<div class="testimonial-rating">${starsHtml}</div>` : ''}
-                <div class="testimonial-text">${escapeHtml(testimonial.text)}</div>
-            `;
+           // СТАЛО (убираем "Мой отзыв" и разделитель):
+testimonialElement.innerHTML = `
+    <div class="testimonial-header">
+        <div class="testimonial-author">${escapeHtml(testimonial.author)}</div>
+        <div class="testimonial-date">${formatDate(testimonial.date)}</div>
+    </div>
+    ${testimonial.rating > 0 ? `<div class="testimonial-rating">${starsHtml}</div>` : ''}
+    <div class="testimonial-text">${escapeHtml(testimonial.text)}</div>
+`;
+
+// УДАЛЯЕМ ВЕСЬ БЛОК с разделителем полностью
             
             testimonialsContainer.appendChild(testimonialElement);
         });
         
-        // Добавляем разделитель между пользовательскими отзывами и вашими
-        if (userTestimonials.length > 0 && yourTestimonials.length > 0) {
-            const firstYourTestimonial = document.querySelector('.your-testimonial');
-            if (firstYourTestimonial) {
-                const separator = document.createElement('div');
-                separator.className = 'testimonials-separator';
-                separator.innerHTML = '<span>Отзывы о моей работе</span>';
-                firstYourTestimonial.parentNode.insertBefore(separator, firstYourTestimonial);
-            }
-        }
+    
     }
     
     // Обработка отправки формы (добавление НОВОГО отзыва пользователя)
